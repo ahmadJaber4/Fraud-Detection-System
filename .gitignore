@@ -1,0 +1,20 @@
+# environment variables
+.env
+backend/.env
+
+# python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+
+# jupyter
+.ipynb_checkpoints/
+
+# os / editor
+.DS_Store
+Thumbs.db
+.vscode/
