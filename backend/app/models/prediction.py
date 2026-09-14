@@ -7,7 +7,7 @@ class Prediction(Base):
     __tablename__ = 'predictions'
 
     id = Column(Integer, primary_key=True, index=True)
-    created_at = Column(DateTime(timezone=True), server_default=func.now, nullable=False)
+    created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
 
     # input features
     amount = Column(Float, nullable=False)
