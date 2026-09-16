@@ -34,3 +34,23 @@ def get_dashboard_stats(db: Session = Depends(get_db)):
         fraud_rate=fraud_rate,
         safe_rate=safe_rate,
     )
+
+# recent predictions table GET endpoint
+@router.get('/recent', response_model=list[RecentPrediction])
+def get_recent_predictions(limit: int = 10, db: Session = Depends(get_db)):
+    predictions = (
+        db.query(Prediction)
+        .order_by(Prediction.created_at.desc())
+        .limit(limit)
+        .all()
+    )
+
+    return [
+        RecentPrediction(
+            created_at=p.created_at,
+            amount=p.amount,
+            location=p.location,
+            is_fraud=bool(p.predicted_label),
+        )
+        for p in predictions
+    ]
