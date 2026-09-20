@@ -1,16 +1,52 @@
+import axios from 'axios'
 import { useState } from "react";
 import Header from "./Header";
 
 export default function PredictForm() {
     const [inputData, setInputData] = useState({
-        amount: null,
-        location: null,
-        device_type: null,
-        age: null,
-        income: null,
-        debt: null,
-        credit_score: null
+        amount: '',
+        location: '',
+        device_type: 'Mobile',
+        age: '',
+        income: '',
+        debt: '',
+        credit_score: ''
     })
+
+    const [prediction, setPrediction] = useState(null)
+
+    function handleChange(e) {
+        const { name, value } = e.target;
+        setInputData(prev => ({ ...prev, [name]: value }));
+    }
+
+    async function analyzeInput() {
+        const payload = {
+            ...inputData,
+            location: inputData.location.trim(),
+            amount: Number(inputData.amount),
+            age: Number(inputData.age),
+            income: Number(inputData.income),
+            debt: Number(inputData.debt),
+            credit_score: Number(inputData.credit_score),
+        }
+        const result = await axios.post('http://127.0.0.1:8000/predictions/', payload)
+        setPrediction(result.data)
+    }
+
+    function handleClear() {
+        setInputData({
+            amount: '',
+            location: '',
+            device_type: 'Mobile',
+            age: '',
+            income: '',
+            debt: '',
+            credit_score: ''
+        })
+
+        setPrediction(null)
+    }
 
     return (
         <>
@@ -19,49 +55,63 @@ export default function PredictForm() {
             <div className="predict-form">
                 <div className="input">
                     <label>Amount</label>
-                    <input type="text" className="text-input" />
+                    <input type="number" name="amount" value={inputData.amount} min='0' onChange={handleChange} />
                 </div>
 
                 <div className="input">
                     <label>Location</label>
-                    <input type="text" className="text-input" />
+                    <input type="text" name="location" value={inputData.location} onChange={handleChange} />
                 </div>
 
                 <div className="input">
                     <label>Device Type</label>
-                    <select name="device" id="device">
-                        <option value="mobile">Mobile</option>
-                        <option value="desktop">Desktop</option>
-                        <option value="tablet">Tablet</option>
+                    <select name="device_type" value={inputData.device_type} id="device" onChange={handleChange}>
+                        <option value="Mobile">Mobile</option>
+                        <option value="Desktop">Desktop</option>
+                        <option value="Tablet">Tablet</option>
                     </select>
                 </div>
 
                 <div className="input">
                     <label>Age</label>
-                    <input type="number" min='18' max='100' />
+                    <input type="number" name="age" value={inputData.age} min='18' max='100' onChange={handleChange} />
                 </div>
 
                 <div className="input">
                     <label>Income</label>
-                    <input type="text" className="text-input" />
+                    <input type="number" name="income" value={inputData.income} min='0' onChange={handleChange} />
                 </div>
 
                 <div className="input">
                     <label>Debt</label>
-                    <input type="text" className="text-input" />
+                    <input type="number" name="debt" value={inputData.debt} min='0' onChange={handleChange} />
                 </div>
 
                 <div className="input">
                     <label>Credit Score</label>
-                    <input type="number" min='300' max='850' />
-                </div>
-                
-                <div className="buttons-box">
-                    <button className="btn analyze-btn">Analyze</button>
-                    <button className="btn clear-btn">Clear</button>
+                    <input type="number" name="credit_score" value={inputData.credit_score} min='300' max='850' onChange={handleChange} />
                 </div>
 
-                <div className="result-box"></div>
+                <div className="buttons-box">
+                    <button className="btn analyze-btn" onClick={analyzeInput}>Analyze</button>
+                    <button className="btn clear-btn" onClick={handleClear}>Clear</button>
+                </div>
+
+                <div className="result-box">
+                    {
+                        prediction &&
+                        <>
+                            <div>
+                                Predicted label: {prediction.predicted_label == 1 ?
+                                    <span style={{ color: 'red', fontWeight: 'bold' }}>Fraud</span>
+                                    : <span style={{ color: '#22de28', fontWeight: 'bold' }}>Safe</span>}
+                            </div>
+                            <div>
+                                Risk probability: {(prediction.predicted_probability * 100).toFixed(2)}%
+                            </div>
+                        </>
+                    }
+                </div>
             </div>
         </>
     )
