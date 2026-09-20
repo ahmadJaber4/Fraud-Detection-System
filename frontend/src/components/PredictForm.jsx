@@ -15,12 +15,27 @@ export default function PredictForm() {
 
     const [prediction, setPrediction] = useState(null)
 
+    const [isLoading, setIsLoading] = useState(false)
+    const [error, setError] = useState(null)
+
     function handleChange(e) {
         const { name, value } = e.target;
         setInputData(prev => ({ ...prev, [name]: value }));
     }
 
     async function analyzeInput() {
+        setError(null)
+        setPrediction(null)
+
+        for (const field in inputData) {
+            if (inputData[field].toString().trim() === '') {
+                setError("No empty fields are allowed")
+                return;
+            }
+        }
+
+        setIsLoading(true)
+
         const payload = {
             ...inputData,
             location: inputData.location.trim(),
@@ -30,8 +45,30 @@ export default function PredictForm() {
             debt: Number(inputData.debt),
             credit_score: Number(inputData.credit_score),
         }
-        const result = await axios.post('http://127.0.0.1:8000/predictions/', payload)
-        setPrediction(result.data)
+
+        try {
+            const result = await axios.post('http://127.0.0.1:8000/predictions/', payload)
+            setPrediction(result.data)
+        }
+        catch (err) {
+            if (err.response) {
+                const detail = err.response.data.detail
+                if (Array.isArray(detail)) {
+                    setError(
+                        detail
+                            .map(d => `${d.loc.at(-1)}: ${d.msg}`)
+                            .join('\n')
+                    )
+                } else {
+                    setError(detail)
+                }
+            } else {
+                setError(err.message)
+            }
+        }
+        finally {
+            setIsLoading(false)
+        }
     }
 
     function handleClear() {
@@ -44,18 +81,19 @@ export default function PredictForm() {
             debt: '',
             credit_score: ''
         })
-
         setPrediction(null)
+        setIsLoading(false)
+        setError(null)
     }
 
     return (
         <>
             <Header />
-            <h3 className="form-title">Enter transaction details:</h3>
+            <h3 className="form-title">Enter transaction details</h3>
             <div className="predict-form">
                 <div className="input">
                     <label>Amount</label>
-                    <input type="number" name="amount" value={inputData.amount} min='0' onChange={handleChange} />
+                    <input type="number" name="amount" value={inputData.amount} min='1' onChange={handleChange} />
                 </div>
 
                 <div className="input">
@@ -93,11 +131,23 @@ export default function PredictForm() {
                 </div>
 
                 <div className="buttons-box">
-                    <button className="btn analyze-btn" onClick={analyzeInput}>Analyze</button>
-                    <button className="btn clear-btn" onClick={handleClear}>Clear</button>
+                    <button className="btn analyze-btn" onClick={analyzeInput} disabled={isLoading}>
+                        {isLoading ? <i className="fa-solid fa-spinner fa-spin fa-xl" style={{ color: 'white' }}></i>
+                            : 'Analyze'}
+                    </button>
+                    <button className="btn clear-btn" onClick={handleClear} disabled={isLoading}>
+                        Clear
+                    </button>
                 </div>
 
                 <div className="result-box">
+                    {
+                        error &&
+                        <div style={{ color: 'red', textAlign: 'left' }}>
+                            {error}
+                        </div>
+                    }
+
                     {
                         prediction &&
                         <>
