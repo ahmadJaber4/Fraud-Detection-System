@@ -1,9 +1,39 @@
+import axios from 'axios'
+import { useEffect, useState } from "react";
 import Header from "./Header";
+import StatCard from './StatCard';
 
-export default function Dashboard(){
+export default function Dashboard() {
+    const [stats, setStats] = useState({
+        total_predictions: 0,
+        fraud_count: 0,
+        safe_count: 0,
+        fraud_rate: 0.0,
+        safe_rate: 0.0
+    })
+
+    useEffect(() => {
+        async function fetchStats() {
+            const response = await axios.get('http://127.0.0.1:8000/dashboard/stats/')
+            const final_stats = {
+                ...response.data,
+                fraud_rate: response.data['fraud_rate'].toFixed(2),
+                safe_rate: response.data['safe_rate'].toFixed(2)
+            }
+            setStats(final_stats)
+        }
+
+        fetchStats()
+    }, [])
+
     return (
         <>
-            <Header/>
+            <Header />
+            <div className='stats'>
+                {Object.entries(stats).map(([name, value]) => {
+                    return <StatCard key={name} name={name} value={value}/>
+                })}
+            </div>
         </>
     )
 }

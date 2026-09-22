@@ -185,3 +185,55 @@ label{
     width: 100%;
     min-height: 60px;
 }
+
+/* ================================ */
+
+.stats{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    /* max-width: 1100px; */
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.stat-card{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background-color: #ffffff;
+    padding: 24px 28px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+    width: 200px;
+    transition: transform 0.15s ease-in-out;
+}
+
+.stat-card:hover{
+    transform: translateY(-4px);
+}
+
+.stat-name{
+    margin: 0;
+    font-size: 0.85em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #64748b;
+}
+
+.stat-value{
+    margin: 0;
+    color: #0f172a;
+    font-size: 2.2em;
+    font-weight: 700;
+}
+
+.stat-card.fraud{
+    border-bottom: 3px solid #fca5a5;
+}
+
+.stat-card.safe{
+    border-bottom: 3px solid #86efac;
+}
