@@ -2,6 +2,7 @@ import axios from 'axios'
 import { useEffect, useState } from "react";
 import Header from "./Header";
 import StatCard from './StatCard';
+import RecentTable from './RecentTable';
 
 export default function Dashboard() {
     const [stats, setStats] = useState({
@@ -11,6 +12,7 @@ export default function Dashboard() {
         fraud_rate: 0.0,
         safe_rate: 0.0
     })
+    const [recentPredictions, setRecentPredictions] = useState([])
 
     useEffect(() => {
         async function fetchStats() {
@@ -26,14 +28,31 @@ export default function Dashboard() {
         fetchStats()
     }, [])
 
+    useEffect(() => {
+        async function fetchRecents() {
+            const response = await axios.get('http://127.0.0.1:8000/dashboard/recent/')
+            setRecentPredictions(response.data)
+        }
+
+        fetchRecents()
+    }, [])
+
     return (
         <>
             <Header />
             <div className='stats'>
                 {Object.entries(stats).map(([name, value]) => {
-                    return <StatCard key={name} name={name} value={value}/>
+                    return <StatCard key={name} name={name} value={value} />
                 })}
             </div>
+            {
+                recentPredictions.length > 0 ?
+                <RecentTable recentPredictions={recentPredictions}/>
+                :
+                <div className='no-predictions'>
+                    No Predictions yet
+                </div>
+            }
         </>
     )
 }
