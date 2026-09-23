@@ -114,3 +114,11 @@ The app will be available at `http://localhost:5173`.
 ## Retraining the Model
 
 The training pipeline lives in [`ml/train.ipynb`](ml/train.ipynb). It reads `ml/fraud_detection_dataset.csv`, builds a preprocessing + XGBoost pipeline, and saves the result to `backend/app/ml/fraud_model.pkl`. Re-run the notebook after changing the dataset or preprocessing steps, then restart the backend to load the updated model.
+
+## Application Screenshots
+
+### 1. Predict Form
+![Screenshot](screenshots/form-screenshot.png)
+
+### 2. Dashboard
+![Screenshot](screenshots/dashboard-screenshot.png)
