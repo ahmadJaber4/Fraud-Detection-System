@@ -1,7 +1,8 @@
 // import libraries
 import axios from 'axios'
 import { useState } from "react";
-import Header from "./Header";
+import Header from "../Header/Header";
+import "./PredictForm.css";
 
 // predict form component => user enters transaction details and gets the prediction (Safe/Fraud)
 export default function PredictForm() {

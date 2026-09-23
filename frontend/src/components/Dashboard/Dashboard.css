@@ -1,0 +1,139 @@
+/* Dashboard Styles */
+
+.stats{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    /* max-width: 1100px; */
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.stat-card{
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background-color: #ffffff;
+    padding: 24px 28px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+    width: 200px;
+    transition: transform 0.15s ease-in-out;
+}
+
+.stat-card:hover{
+    transform: translateY(-4px);
+}
+
+.stat-name{
+    margin: 0;
+    font-size: 0.85em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #64748b;
+}
+
+.stat-value{
+    margin: 0;
+    color: #0f172a;
+    font-size: 2.2em;
+    font-weight: 700;
+}
+
+.stat-card.fraud{
+    border-bottom: 3px solid #fca5a5;
+}
+
+.stat-card.safe{
+    border-bottom: 3px solid #86efac;
+}
+
+.recent-table caption{
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #64748b;
+    font-size: 1.2em;
+    margin: 15px;
+    caption-side: top;
+    text-align: left;
+}
+
+.table-container{
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 24px 28px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+}
+
+.recent-table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.recent-table th,
+.recent-table td{
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 0.95em;
+}
+
+.recent-table thead th{
+    color: #64748b;
+    font-size: 0.8em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.recent-table tbody tr{
+    border-bottom: 1px solid #e2e8f0;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.recent-table tbody tr:last-of-type{
+    border-bottom: none;
+}
+
+.recent-table tbody tr:hover{
+    background-color: #f8fafc;
+}
+
+.recent-table td{
+    color: #0f172a;
+}
+
+.fraud-badge{
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 999px;
+    font-size: 0.85em;
+    font-weight: 600;
+}
+
+.fraud-badge.fraud{
+    background-color: #fee2e2;
+    color: #ef4444;
+}
+
+.fraud-badge.safe{
+    background-color: #dcfce7;
+    color: #16a34a;
+}
+
+.no-predictions{
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 48px 28px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+    text-align: center;
+    color: #64748b;
+    font-size: 1.1em;
+    font-weight: 500;
+}

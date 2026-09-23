@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom"
-import PredictForm from "./components/PredictForm"
-import Dashboard from "./components/Dashboard"
+import PredictForm from "./components/PredictForm/PredictForm.jsx"
+import Dashboard from "./components/Dashboard/Dashboard.jsx"
 
 function App() {
 

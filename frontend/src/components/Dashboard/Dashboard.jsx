@@ -1,8 +1,9 @@
 import axios from 'axios'
 import { useEffect, useState } from "react";
-import Header from "./Header";
+import Header from "../Header/Header";
 import StatCard from './StatCard';
 import RecentTable from './RecentTable';
+import './Dashboard.css'
 
 export default function Dashboard() {
     const [stats, setStats] = useState({
