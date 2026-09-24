@@ -1,23 +1,43 @@
 // import libraries
 import axios from 'axios'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "../Header/Header";
 import "./PredictForm.css";
 
 // predict form component => user enters transaction details and gets the prediction (Safe/Fraud)
 export default function PredictForm() {
     // input state (transaction details)
-    const [inputData, setInputData] = useState({
-        amount: '',
-        location: '',
-        device_type: 'Mobile',
-        age: '',
-        income: '',
-        debt: '',
-        credit_score: ''
+    const [inputData, setInputData] = useState(() => {
+        // get input data from localStorage if existant to maintain form across pages/refreshes
+        const savedData = localStorage.getItem('predictFormData')
+
+        return savedData
+            ? JSON.parse(savedData)
+            : {
+                amount: '',
+                location: '',
+                device_type: 'Mobile',
+                age: '',
+                income: '',
+                debt: '',
+                credit_score: ''
+            }
     })
+
+    // set localStorage item to the new input data whenever it changes
+    useEffect(() => {
+        localStorage.setItem('predictFormData', JSON.stringify(inputData))
+    }, [inputData])
+
     // prediction state (0/1)
-    const [prediction, setPrediction] = useState(null)
+    const [prediction, setPrediction] = useState(() => {
+        // get prediction from localStorage if existant to maintain the prediction across pages/refreshes
+        const savedPrediction = localStorage.getItem('predictFormPrediction')
+
+        return savedPrediction
+            ? JSON.parse(savedPrediction)
+            : null
+    })
 
     // loading and error states
     const [isLoading, setIsLoading] = useState(false)
@@ -61,6 +81,12 @@ export default function PredictForm() {
             // POST request (returns prediction 0/1)
             const result = await axios.post('http://127.0.0.1:8000/predictions/', payload)
             setPrediction(result.data)
+
+            // set localStorage item to the new prediction
+            localStorage.setItem(
+                'predictFormPrediction',
+                JSON.stringify(result.data)
+            )
         }
         catch (err) {
             if (err.response) {
@@ -100,6 +126,9 @@ export default function PredictForm() {
             debt: '',
             credit_score: ''
         })
+        // remove localStorage items
+        localStorage.removeItem('predictFormData')
+        localStorage.removeItem('predictFormPrediction')
         // reset states
         setPrediction(null)
         setIsLoading(false)
