@@ -1,6 +1,6 @@
 /* Dashboard Styles */
 
-.stats{
+.stats {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -10,7 +10,7 @@
     padding: 0 20px;
 }
 
-.stat-card{
+.stat-card {
     display: flex;
     flex-direction: column;
     gap: 6px;
@@ -22,11 +22,11 @@
     transition: transform 0.15s ease-in-out;
 }
 
-.stat-card:hover{
+.stat-card:hover {
     transform: translateY(-4px);
 }
 
-.stat-name{
+.stat-name {
     margin: 0;
     font-size: 0.85em;
     font-weight: 600;
@@ -35,22 +35,22 @@
     color: #64748b;
 }
 
-.stat-value{
+.stat-value {
     margin: 0;
     color: #0f172a;
     font-size: 2.2em;
     font-weight: 700;
 }
 
-.stat-card.fraud{
+.stat-card.fraud {
     border-bottom: 3px solid #fca5a5;
 }
 
-.stat-card.safe{
+.stat-card.safe {
     border-bottom: 3px solid #86efac;
 }
 
-.recent-table caption{
+.recent-table caption {
     text-transform: uppercase;
     letter-spacing: 0.04em;
     color: #64748b;
@@ -60,7 +60,7 @@
     text-align: left;
 }
 
-.table-container{
+.table-container {
     max-width: 800px;
     margin: 60px auto;
     padding: 24px 28px;
@@ -69,19 +69,19 @@
     box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
 }
 
-.recent-table{
+.recent-table {
     width: 100%;
     border-collapse: collapse;
 }
 
 .recent-table th,
-.recent-table td{
+.recent-table td {
     padding: 12px 16px;
     text-align: left;
     font-size: 0.95em;
 }
 
-.recent-table thead th{
+.recent-table thead th {
     color: #64748b;
     font-size: 0.8em;
     font-weight: 600;
@@ -90,24 +90,24 @@
     border-bottom: 2px solid #e2e8f0;
 }
 
-.recent-table tbody tr{
+.recent-table tbody tr {
     border-bottom: 1px solid #e2e8f0;
     transition: background-color 0.15s ease-in-out;
 }
 
-.recent-table tbody tr:last-of-type{
+.recent-table tbody tr:last-of-type {
     border-bottom: none;
 }
 
-.recent-table tbody tr:hover{
+.recent-table tbody tr:hover {
     background-color: #f8fafc;
 }
 
-.recent-table td{
+.recent-table td {
     color: #0f172a;
 }
 
-.fraud-badge{
+.fraud-badge {
     display: inline-block;
     padding: 4px 14px;
     border-radius: 999px;
@@ -115,17 +115,17 @@
     font-weight: 600;
 }
 
-.fraud-badge.fraud{
+.fraud-badge.fraud {
     background-color: #fee2e2;
     color: #ef4444;
 }
 
-.fraud-badge.safe{
+.fraud-badge.safe {
     background-color: #dcfce7;
     color: #16a34a;
 }
 
-.no-predictions{
+.no-predictions {
     max-width: 800px;
     margin: 60px auto;
     padding: 48px 28px;
@@ -136,4 +136,45 @@
     color: #64748b;
     font-size: 1.1em;
     font-weight: 500;
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+    .stat-card {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        padding: 24px 28px;
+        width: 150px;
+    }
+
+    .stat-name {
+        font-size: 0.7em;
+    }
+
+    .stat-value {
+        align-self: center;
+        font-size: 1.6em;
+    }
+
+    .recent-table caption {
+        font-size: 0.9em;
+    }
+
+    .table-container {
+        max-width: 365px;
+        margin: 45px auto;
+        padding: 24px 15px;
+        overflow-x: auto;
+    }
+
+    .recent-table th,
+    .recent-table td {
+        padding: 10px 15px;
+        font-size: 0.8em;
+    }
+
+    .recent-table thead th {
+        font-size: 0.7em;
+    }
 }

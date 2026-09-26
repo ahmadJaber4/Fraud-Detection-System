@@ -1,6 +1,6 @@
 /* Form Styles */
 
-.form-title{
+.form-title {
     max-width: 400px;
     margin: 40px auto 0;
     font-size: 1.2em;
@@ -9,7 +9,7 @@
     text-align: center;
 }
 
-.predict-form{
+.predict-form {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -23,7 +23,7 @@
     box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
 }
 
-.input{
+.input {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -32,19 +32,19 @@
     border-bottom: 1px solid #e2e8f0;
 }
 
-.input:last-of-type{
+.input:last-of-type {
     border-bottom: none;
     padding-bottom: 0;
 }
 
-label{
+label {
     font-size: 1em;
     font-weight: 500;
     color: #334155;
 }
 
 .predict-form input,
-.predict-form select{
+.predict-form select {
     border: 1px solid #cbd5e1;
     border-radius: 8px;
     background-color: #f8fafc;
@@ -59,13 +59,13 @@ label{
 }
 
 .predict-form input:focus,
-.predict-form select:focus{
+.predict-form select:focus {
     border-color: #0ea5e9;
     background-color: #eef6fc;
     box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
 }
 
-.buttons-box{
+.buttons-box {
     display: flex;
     gap: 24px;
     margin-top: 8px;
@@ -73,7 +73,7 @@ label{
     justify-content: center;
 }
 
-.btn{
+.btn {
     font-size: 1.05em;
     font-weight: 500;
     padding: 10px 30px;
@@ -85,29 +85,64 @@ label{
     transition: all 0.15s ease-in-out;
 }
 
-.analyze-btn{
+.analyze-btn {
     background-color: #0ea5e9;
     color: white;
 }
 
-.analyze-btn:hover{
+.analyze-btn:hover {
     background-color: #0c8fc9;
 }
 
-.clear-btn{
+.clear-btn {
     background-color: #f1f5f9;
     color: #334155;
 }
 
-.clear-btn:hover{
+.clear-btn:hover {
     background-color: #e2e8f0;
 }
 
-.result-box{
+.result-box {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
     width: 100%;
     min-height: 60px;
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+    .form-title {
+        font-size: 1em;
+    }
+
+    .predict-form {
+        max-width: 300px;
+    }
+
+    label {
+        font-size: 0.9em;
+    }
+
+    .predict-form input,
+    .predict-form select {
+        width: 120px;
+        height: 28px;
+        font-size: 0.85em;
+    }
+
+    .btn {
+        font-size: 0.9em;
+        padding: 7px 25px;
+        width: 125px;
+    }
+
+    .result-box {
+        gap: 7px;
+        width: 100%;
+        min-height: 60px;
+        font-size: 0.95em;
+    }
 }
