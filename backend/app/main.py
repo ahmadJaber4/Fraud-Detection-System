@@ -14,7 +14,8 @@ Base.metadata.create_all(bind=engine)
 # CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["http://localhost:5173", # local development
+                   "https://fraud-detection-frontend-production-0df2.up.railway.app/"], # production
     allow_methods=["*"],
     allow_headers=["*"],
 )
