@@ -79,7 +79,7 @@ export default function PredictForm() {
 
         try {
             // POST request (returns prediction 0/1)
-            const result = await axios.post('http://127.0.0.1:8000/predictions/', payload)
+            const result = await axios.post(`${import.meta.env.VITE_API_URL}/predictions/`, payload)
             setPrediction(result.data)
 
             // set localStorage item to the new prediction

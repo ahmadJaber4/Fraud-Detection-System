@@ -17,7 +17,7 @@ export default function Dashboard() {
 
     useEffect(() => {
         async function fetchStats() {
-            const response = await axios.get('http://127.0.0.1:8000/dashboard/stats/')
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/dashboard/stats/`)
             const final_stats = {
                 ...response.data,
                 fraud_rate: response.data['fraud_rate'].toFixed(2),
@@ -31,7 +31,7 @@ export default function Dashboard() {
 
     useEffect(() => {
         async function fetchRecents() {
-            const response = await axios.get('http://127.0.0.1:8000/dashboard/recent/')
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/dashboard/recent/`)
             setRecentPredictions(response.data)
         }
 
